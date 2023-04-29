@@ -45,7 +45,9 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
         body: Column(
-          children: const [GridWidget()],
+          children: const [
+            GridWidget(),
+          ],
         ));
   }
 }

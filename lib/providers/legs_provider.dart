@@ -18,35 +18,6 @@ class LegsProvider with ChangeNotifier {
     return [..._legs];
   }
 
-  List<Map<String, Object>> get groupedWeight {
-    return List.generate(7, (index) {
-      final weekDay = DateTime.now().subtract(Duration(days: index));
-
-      var totalWeight = 0.0;
-      if (_legs.isNotEmpty) {
-        for (var i = 0; i <= _legs.length; i++) {
-          if (_legs[i].time.day == weekDay.day &&
-              _legs[i].time.month == weekDay.month &&
-              _legs[i].time.month == weekDay.year) {
-            totalWeight += _legs[i].kgs;
-            print(totalWeight);
-          }
-        }
-      }
-
-      // print(DateFormat.E().format(weekDay));
-      // print(totalWeight);
-
-      return {'day': DateFormat.E().format(weekDay), 'weight': totalWeight};
-    });
-  }
-
-  List<PracticeProvider> get _recentWeights {
-    return _legs.where((lg) {
-      return lg.time.isAfter(DateTime.now().subtract(const Duration(days: 7)));
-    }).toList();
-  }
-
   void addPractice(PracticeProvider newPractice) {
     var practice = PracticeProvider(
         kgs: newPractice.kgs,
@@ -57,7 +28,55 @@ class LegsProvider with ChangeNotifier {
         type: newPractice.type,
         time: DateTime.now());
     _legs.add(practice);
-    print(practice.time);
+    // print(practice.kgs);
+
     notifyListeners();
+  }
+
+  // List<PracticeProvider> get _recentPractice {
+  //   return _legs.where((practice) {
+  //     return practice.time
+  //         .isAfter(DateTime.now().subtract(const Duration(days: 7)));
+  //   }).toList();
+  // }
+
+  List<Map<String, dynamic>> get groupedWeight {
+    return List.generate(7, (index) {
+      final weekDay = DateTime.now().subtract(Duration(days: index));
+
+      var smData = _legs.where((practice) {
+        return practice.time
+            .isAfter(DateTime.now().subtract(const Duration(days: 7)));
+      }).toList();
+
+      var totalWeight = 0.0;
+      print('smep${smData.first.kgs}');
+
+      for (var i = 0; i < smData.length; i++) {
+        if (smData[i].time.day == weekDay.day &&
+            smData[i].time.month == weekDay.month &&
+            smData[i].time.year == weekDay.year) {
+          totalWeight += smData[i].kgs;
+
+          //print('pop$totalWeight');
+        }
+      }
+      print('haxm$totalWeight');
+      // notifyListeners();
+
+      // print(DateFormat.E().format(weekDay));
+      // print(totalWeight);
+
+      return {
+        'day': DateFormat.E().format(weekDay).substring(0, 1),
+        'weight': totalWeight
+      };
+    }).reversed.toList();
+  }
+
+  double get totalmaxWeight {
+    return groupedWeight.fold(0.0, (sum, item) {
+      return sum + item['weight'];
+    });
   }
 }

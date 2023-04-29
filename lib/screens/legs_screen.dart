@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gym_app/providers/legs_provider.dart';
 import 'package:gym_app/providers/practice_provider.dart';
 import 'package:provider/provider.dart';
+import '../widgets/bar_chart_widget.dart';
 import '../widgets/legs_practice_widget.dart';
 
 class LegsScreen extends StatefulWidget {
@@ -182,7 +183,7 @@ class _LegsScreenState extends State<LegsScreen> {
             ),
           ),
           Text(''),
-          //BarChartWidget(),
+          BarChartWidget(),
           LegsPracticeWidget()
         ],
       ),
