@@ -11,19 +11,9 @@ class BarChartWidget extends StatefulWidget {
 }
 
 class _BarChartWidgetState extends State<BarChartWidget> {
-  // void getData() {
-  //   var data = Provider.of<LegsProvider>(context, listen: false).groupedWeight;
-  //   print(data);
-  // }
-
-  // var data = Provider.of<LegsProvider>(context).groupedWeight;
   @override
   Widget build(BuildContext context) {
-    return
-
-        // ElevatedButton(onPressed: getData, child: const Text('Click me'));
-
-        Consumer<LegsProvider>(
+    return Consumer<LegsProvider>(
       builder: (context, notifier, child) {
         return Card(
             shape:

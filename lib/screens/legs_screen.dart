@@ -157,6 +157,8 @@ class _LegsScreenState extends State<LegsScreen> {
                         onPressed: () {
                           _saveForm();
                           Navigator.pop(context);
+                          Provider.of<LegsProvider>(context, listen: false)
+                              .fetchAndSetPractice();
                         },
                         child: const Text('Update..')),
                   ],
@@ -173,8 +175,8 @@ class _LegsScreenState extends State<LegsScreen> {
         onPressed: _showModalBottomSheet,
         child: const Icon(Icons.add),
       ),
-      body: Column(
-        children: const [
+      body: const Column(
+        children: [
           Padding(
             padding: EdgeInsets.only(left: 15.0, top: 15.0),
             child: Text(
