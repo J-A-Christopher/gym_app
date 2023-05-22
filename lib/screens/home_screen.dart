@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/grid_widget.dart';
+import 'nav_bar.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -44,9 +45,10 @@ class HomeScreen extends StatelessWidget {
             ],
           ),
         ),
-        body: Column(
-          children: const [
+        body: const Column(
+          children: [
             GridWidget(),
+            NavBar(),
           ],
         ));
   }

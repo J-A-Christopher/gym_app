@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../providers/legs_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 
 class LegsPracticeWidget extends StatelessWidget {
   const LegsPracticeWidget({super.key});
