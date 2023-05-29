@@ -5,9 +5,9 @@ import 'package:sqflite/sqflite.dart';
 class DBHelper {
   static Future<Database> database() async {
     final dbPath = await sql.getDatabasesPath();
-    return sql.openDatabase(path.join(dbPath, 'legs.db'),
+    return sql.openDatabase(path.join(dbPath, 'back.db'),
         onCreate: (db, version) => db.execute(
-            'CREATE TABLE legs(id TEXT PRIMARY KEY, type TEXT, subtype TEXT, reps INT, sets INT, kgs FLOAT, time TEXT)'),
+            'CREATE TABLE back(id TEXT PRIMARY KEY, type TEXT, subtype TEXT, reps INT, sets INT, kgs FLOAT, time TEXT)'),
         version: 1);
   }
 
@@ -24,7 +24,7 @@ class DBHelper {
   static Future<int> deletePrac(String id) async {
     final db = await DBHelper.database();
 
-    var id1 = await db.delete('legs', where: 'id = ?', whereArgs: [id]);
+    var id1 = await db.delete('back', where: 'id = ?', whereArgs: [id]);
     return id1;
   }
 }

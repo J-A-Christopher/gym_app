@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gym_app/providers/arms_provider.dart';
+import 'package:gym_app/providers/back_provider.dart';
+import 'package:gym_app/providers/chest_provider.dart';
 import 'package:gym_app/providers/legs_provider.dart';
 import './screens/home_screen.dart';
 import 'package:provider/provider.dart';
@@ -15,7 +18,13 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<LegsProvider>(
-            create: (context) => LegsProvider())
+            create: (context) => LegsProvider()),
+        ChangeNotifierProvider<ArmsProvider>(
+            create: (context) => ArmsProvider()),
+        ChangeNotifierProvider<BackProvider>(
+            create: (context) => BackProvider()),
+        ChangeNotifierProvider<ChestProvider>(
+            create: (context) => ChestProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import './practice_provider.dart';
 import 'package:intl/intl.dart';
-import '../helpers/db_helper.dart';
+import '../helpers/db_arms.dart';
 
-class LegsProvider with ChangeNotifier {
-  List<PracticeProvider> _legs = [];
-  List<PracticeProvider> get legs {
-    return [..._legs];
+class ArmsProvider with ChangeNotifier {
+  List<PracticeProvider> _arms = [];
+  List<PracticeProvider> get arms {
+    return [..._arms];
   }
 
   void addPractice(PracticeProvider newPractice) {
@@ -18,10 +18,10 @@ class LegsProvider with ChangeNotifier {
         subType: newPractice.subType,
         type: newPractice.type,
         time: DateTime.now());
-    _legs.add(practice);
+    _arms.add(practice);
 
     notifyListeners();
-    DBHelper.insert('legs', {
+    DBHelper1.insert('arms', {
       'id': practice.id,
       'type': practice.type,
       'subtype': practice.subType,
@@ -36,7 +36,7 @@ class LegsProvider with ChangeNotifier {
     return List.generate(7, (index) {
       final weekDay = DateTime.now().subtract(Duration(days: index));
 
-      var smData = _legs.where((practice) {
+      var smData = _arms.where((practice) {
         return practice.time
             .isAfter(DateTime.now().subtract(const Duration(days: 7)));
       }).toList();
@@ -64,9 +64,9 @@ class LegsProvider with ChangeNotifier {
     });
   }
 
-  Future<void> fetchAndSetPractice() async {
-    final dataList = await DBHelper.getData('legs');
-    _legs = dataList
+  Future<void> fetchAndSetPractice1() async {
+    final dataList1 = await DBHelper1.getData('arms');
+    _arms = dataList1
         .map((prac) => PracticeProvider(
             kgs: prac['kgs'],
             id: prac['id'],
@@ -80,8 +80,8 @@ class LegsProvider with ChangeNotifier {
   }
 
   Future<void> deletePractice(String pracId) async {
-    DBHelper.deletePrac(pracId);
-    fetchAndSetPractice();
+    DBHelper1.deletePrac(pracId);
+    fetchAndSetPractice1();
     notifyListeners();
   }
 }

@@ -1,42 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:gym_app/providers/legs_provider.dart';
 import 'package:gym_app/providers/practice_provider.dart';
 import 'package:provider/provider.dart';
-import '../widgets/bar_chart_widget.dart';
-import '../widgets/legs_practice_widget.dart';
+import '../providers/arms_provider.dart';
+import '../widgets/arms_practice_widget.dart';
+import '../widgets/bar_chart_widget1.dart';
 
-class LegsScreen extends StatefulWidget {
-  const LegsScreen({super.key});
+class ArmsScreen extends StatefulWidget {
+  const ArmsScreen({super.key});
 
   @override
-  State<LegsScreen> createState() => _LegsScreenState();
+  State<ArmsScreen> createState() => _ArmsScreenState();
 }
 
-class _LegsScreenState extends State<LegsScreen> {
+class _ArmsScreenState extends State<ArmsScreen> {
   final _form = GlobalKey<FormState>();
-  DateTime? _selectedDate;
   void _saveForm() {
     _form.currentState!.save();
-    Provider.of<LegsProvider>(context, listen: false).addPractice(
+    Provider.of<ArmsProvider>(context, listen: false).addPractice(
       _editedPractices,
     );
   }
-
-  // void _presentDatePicker() {
-  //   showDatePicker(
-  //           context: context,
-  //           initialDate: DateTime.now(),
-  //           firstDate: DateTime(2023),
-  //           lastDate: DateTime.now())
-  //       .then((pickedDate) {
-  //     if (pickedDate == null) {
-  //       return;
-  //     }
-  //     setState(() {
-  //       _selectedDate = pickedDate;
-  //     });
-  //   });
-  // }
 
   var _editedPractices = PracticeProvider(
       kgs: 0,
@@ -92,7 +75,7 @@ class _LegsScreenState extends State<LegsScreen> {
                     ),
                     TextFormField(
                       decoration: const InputDecoration(
-                          hintText: 'Exercise sub-type e.g Upper Chest',
+                          hintText: 'Exercise sub-type e.g Bicep',
                           border: OutlineInputBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(15)))),
@@ -116,7 +99,6 @@ class _LegsScreenState extends State<LegsScreen> {
                           border: OutlineInputBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(15)))),
-                      keyboardType: TextInputType.number,
                       onSaved: (value) {
                         _editedPractices = PracticeProvider(
                             time: DateTime.now(),
@@ -137,7 +119,6 @@ class _LegsScreenState extends State<LegsScreen> {
                           border: OutlineInputBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(15)))),
-                      keyboardType: TextInputType.number,
                       onSaved: (value) {
                         _editedPractices = PracticeProvider(
                             time: DateTime.now(),
@@ -158,54 +139,35 @@ class _LegsScreenState extends State<LegsScreen> {
                           border: OutlineInputBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(15)))),
-                      keyboardType: TextInputType.number,
                       onSaved: (value) {
                         _editedPractices = PracticeProvider(
-                          kgs: double.parse(value!),
-                          id: '',
-                          reps: _editedPractices.reps,
-                          sets: _editedPractices.sets,
-                          subType: _editedPractices.subType,
-                          type: _editedPractices.type,
-                          time: DateTime.now(),
-                        );
+                            kgs: double.parse(value!),
+                            id: '',
+                            reps: _editedPractices.reps,
+                            sets: _editedPractices.sets,
+                            subType: _editedPractices.subType,
+                            type: _editedPractices.type,
+                            time: DateTime.now());
                       },
                     ),
                     const SizedBox(
                       height: 8,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ElevatedButton(
-                            onPressed: () {
-                              if (_editedPractices.kgs == '' ||
-                                  _editedPractices.reps == '' ||
-                                  _editedPractices.sets == '' ||
-                                  _editedPractices.subType == '' ||
-                                  _editedPractices.type == '' ||
-                                  _selectedDate == '') {
-                                return;
-                              }
-                              _saveForm();
-                              Navigator.pop(context);
-                              Provider.of<LegsProvider>(context, listen: false)
-                                  .fetchAndSetPractice();
-                            },
-                            child: const Text('Update..')),
-                        // Text(_selectedDate == null
-                        //     ? 'No Date Chosen'
-                        //     : 'PickedDate:  ${DateFormat.yMd().format(_selectedDate!)}'),
-                        // TextButton(
-                        //     onPressed: _presentDatePicker,
-                        //     child: const Text(
-                        //       'Choose Date',
-                        //       style: TextStyle(
-                        //           color: Colors.indigo,
-                        //           fontWeight: FontWeight.bold),
-                        //     )),
-                      ],
-                    ),
+                    ElevatedButton(
+                        onPressed: () {
+                          if (_editedPractices.kgs == '' ||
+                              _editedPractices.reps == '' ||
+                              _editedPractices.sets == '' ||
+                              _editedPractices.subType == '' ||
+                              _editedPractices.type == '') {
+                            return;
+                          }
+                          _saveForm();
+                          Navigator.pop(context);
+                          Provider.of<ArmsProvider>(context, listen: false)
+                              .fetchAndSetPractice1();
+                        },
+                        child: const Text('Update..')),
                   ],
                 ),
               ))));
@@ -214,26 +176,24 @@ class _LegsScreenState extends State<LegsScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Legs'),
+        title: const Text('Arms'),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _showModalBottomSheet,
         child: const Icon(Icons.add),
       ),
-      body: Column(
+      body: const Column(
         children: [
-          const Padding(
+          Padding(
             padding: EdgeInsets.only(left: 15.0, top: 15.0),
             child: Text(
               'Current Weight',
               style: TextStyle(fontSize: 15),
             ),
           ),
-          const Text(''),
-          const BarChartWidget(),
-          LegsPracticeWidget(
-            pickedDate: _selectedDate,
-          )
+          Text(''),
+          BarChartWidget1(),
+          ArmsPracticeWidget()
         ],
       ),
     );

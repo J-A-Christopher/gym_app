@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class TabContent extends StatelessWidget {
-  const TabContent({super.key});
+class TabContent1 extends StatelessWidget {
+  const TabContent1({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,12 +23,12 @@ class TabContent extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(30),
                 child: Image.asset(
-                  'assets/leg.png',
-                  fit: BoxFit.fill,
+                  'assets/arm.png',
+                  fit: BoxFit.cover,
                 ),
               ),
             ),
-            title: const Text('Sample Leg Exercise'),
+            title: const Text('Sample Arm Exercise'),
             trailing: TextButton(
               onPressed: () {
                 final Uri url = Uri.parse(sites[index]);

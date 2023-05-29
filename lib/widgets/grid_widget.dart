@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import './grid_item.dart';
 import '../screens/chest_screen.dart';
 import '../screens/back_screen.dart';
-import '../screens/armas_screen.dart';
+import '../screens/arms_screen.dart';
 import '../screens/legs_screen.dart';
 
 class GridWidget extends StatelessWidget {

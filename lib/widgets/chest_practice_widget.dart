@@ -1,29 +1,24 @@
 import 'package:flutter/material.dart';
-import '../providers/legs_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
-class LegsPracticeWidget extends StatefulWidget {
-  final DateTime? pickedDate;
-  const LegsPracticeWidget({super.key, this.pickedDate});
+import '../providers/chest_provider.dart';
 
-  @override
-  State<LegsPracticeWidget> createState() => _LegsPracticeWidgetState();
-}
+class ChestPracticeWidget extends StatelessWidget {
+  const ChestPracticeWidget({super.key});
 
-class _LegsPracticeWidgetState extends State<LegsPracticeWidget> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: Provider.of<LegsProvider>(context, listen: false)
-          .fetchAndSetPractice(),
+      future: Provider.of<ChestProvider>(context, listen: false)
+          .fetchAndSetPractice1(),
       builder: (context, snapshot) => snapshot.connectionState ==
               ConnectionState.waiting
           ? const Center(
               child: CircularProgressIndicator(),
             )
-          : Consumer<LegsProvider>(builder: (context, notifier, ch) {
-              return notifier.legs.isEmpty
+          : Consumer<ChestProvider>(builder: (context, notifier, ch) {
+              return notifier.chest.isEmpty
                   ? const Center(
                       child: Padding(
                         padding: EdgeInsets.only(top: 150.0),
@@ -39,10 +34,21 @@ class _LegsPracticeWidgetState extends State<LegsPracticeWidget> {
                               height: 100,
                               child: Dismissible(
                                 onDismissed: (direction) {
-                                  Provider.of<LegsProvider>(context,
+                                  Provider.of<ChestProvider>(context,
                                           listen: false)
-                                      .deletePractice(notifier.legs[index].id);
+                                      .deletePractice(notifier.chest[index].id);
                                 },
+                                key: UniqueKey(),
+                                background: Container(
+                                  padding: const EdgeInsets.only(right: 20),
+                                  color: Colors.red,
+                                  alignment: Alignment.centerRight,
+                                  child: const Icon(
+                                    Icons.delete,
+                                    color: Colors.white,
+                                    size: 40,
+                                  ),
+                                ),
                                 direction: DismissDirection.endToStart,
                                 confirmDismiss: (drection) {
                                   return showDialog(
@@ -67,17 +73,6 @@ class _LegsPracticeWidgetState extends State<LegsPracticeWidget> {
                                             ],
                                           ));
                                 },
-                                key: UniqueKey(),
-                                background: Container(
-                                  padding: const EdgeInsets.only(right: 20),
-                                  color: Colors.red,
-                                  alignment: Alignment.centerRight,
-                                  child: const Icon(
-                                    Icons.delete,
-                                    color: Colors.white,
-                                    size: 40,
-                                  ),
-                                ),
                                 child: Card(
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10)),
@@ -89,7 +84,7 @@ class _LegsPracticeWidgetState extends State<LegsPracticeWidget> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         const Text(
-                                          'Legs',
+                                          'Chest',
                                           style: TextStyle(
                                               fontSize: 15,
                                               fontWeight: FontWeight.bold),
@@ -101,40 +96,32 @@ class _LegsPracticeWidgetState extends State<LegsPracticeWidget> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                notifier.legs[index].subType,
+                                                notifier.chest[index].subType,
                                                 style: const TextStyle(
                                                     fontSize: 15),
                                               ),
                                               Text(
-                                                '${notifier.legs[index].reps}x${notifier.legs[index].sets}',
+                                                '${notifier.chest[index].reps}x${notifier.chest[index].sets}',
                                                 style: const TextStyle(
                                                     fontSize: 20),
                                               ),
                                               Text(
-                                                '${notifier.legs[index].kgs} kg',
+                                                '${notifier.chest[index].kgs} kg',
                                                 style: const TextStyle(
                                                     fontSize: 20),
                                               ),
-                                              // TextButton(
-                                              //     onPressed: () {
-                                              //       Provider.of<LegsProvider>(
-                                              //               context,
-                                              //               listen: false)
-                                              //           .deletePractice();
-                                              //     },
-                                              //     child: const Text('Delete')),
                                             ],
                                           ),
                                         ),
                                         Text(
-                                            'Date Modified:      ${DateFormat.yMMMEd().format(notifier.legs[index].time)} at ${DateFormat('h:mm a').format(notifier.legs[index].time)}'),
+                                            'Date Modified:      ${DateFormat.yMMMEd().format(notifier.chest[index].time)} at ${DateFormat('h:mm a').format(notifier.chest[index].time)}')
                                       ],
                                     ),
                                   ),
                                 ),
                               ),
                             )),
-                        itemCount: notifier.legs.length,
+                        itemCount: notifier.chest.length,
                       ),
                     );
             }),

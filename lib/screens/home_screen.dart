@@ -21,8 +21,10 @@ class HomeScreen extends StatelessWidget {
                 decoration: BoxDecoration(color: Colors.indigo),
                 child: UserAccountsDrawerHeader(
                   accountName: Text(
-                    'Cj',
-                    style: TextStyle(fontSize: 20),
+                    'Name',
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
                   ),
                   accountEmail: Text('xyZ@gmail.com'),
                   currentAccountPictureSize: Size.square(55),

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gym_app/widgets/tab_content.dart';
 
+import '../widgets/tab_content1.dart';
+import '../widgets/tab_content2.dart';
+import '../widgets/tab_content3.dart';
+
 class NavBar extends StatefulWidget {
   const NavBar({super.key});
 
@@ -45,9 +49,9 @@ class _NavBarState extends State<NavBar> {
             const Expanded(
                 child: TabBarView(children: [
               TabContent(),
-              TabContent(),
-              TabContent(),
-              TabContent()
+              TabContent1(),
+              TabContent2(),
+              TabContent3()
             ]))
           ],
         ),

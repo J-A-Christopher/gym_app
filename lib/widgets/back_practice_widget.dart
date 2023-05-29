@@ -1,29 +1,25 @@
 import 'package:flutter/material.dart';
-import '../providers/legs_provider.dart';
+
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
-class LegsPracticeWidget extends StatefulWidget {
-  final DateTime? pickedDate;
-  const LegsPracticeWidget({super.key, this.pickedDate});
+import '../providers/back_provider.dart';
 
-  @override
-  State<LegsPracticeWidget> createState() => _LegsPracticeWidgetState();
-}
+class BackPracticeWidget extends StatelessWidget {
+  const BackPracticeWidget({super.key});
 
-class _LegsPracticeWidgetState extends State<LegsPracticeWidget> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: Provider.of<LegsProvider>(context, listen: false)
-          .fetchAndSetPractice(),
+      future: Provider.of<BackProvider>(context, listen: false)
+          .fetchAndSetPractice1(),
       builder: (context, snapshot) => snapshot.connectionState ==
               ConnectionState.waiting
           ? const Center(
               child: CircularProgressIndicator(),
             )
-          : Consumer<LegsProvider>(builder: (context, notifier, ch) {
-              return notifier.legs.isEmpty
+          : Consumer<BackProvider>(builder: (context, notifier, ch) {
+              return notifier.back.isEmpty
                   ? const Center(
                       child: Padding(
                         padding: EdgeInsets.only(top: 150.0),
@@ -39,9 +35,9 @@ class _LegsPracticeWidgetState extends State<LegsPracticeWidget> {
                               height: 100,
                               child: Dismissible(
                                 onDismissed: (direction) {
-                                  Provider.of<LegsProvider>(context,
+                                  Provider.of<BackProvider>(context,
                                           listen: false)
-                                      .deletePractice(notifier.legs[index].id);
+                                      .deletePractice(notifier.back[index].id);
                                 },
                                 direction: DismissDirection.endToStart,
                                 confirmDismiss: (drection) {
@@ -67,7 +63,6 @@ class _LegsPracticeWidgetState extends State<LegsPracticeWidget> {
                                             ],
                                           ));
                                 },
-                                key: UniqueKey(),
                                 background: Container(
                                   padding: const EdgeInsets.only(right: 20),
                                   color: Colors.red,
@@ -78,6 +73,7 @@ class _LegsPracticeWidgetState extends State<LegsPracticeWidget> {
                                     size: 40,
                                   ),
                                 ),
+                                key: UniqueKey(),
                                 child: Card(
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10)),
@@ -89,7 +85,7 @@ class _LegsPracticeWidgetState extends State<LegsPracticeWidget> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         const Text(
-                                          'Legs',
+                                          'Back',
                                           style: TextStyle(
                                               fontSize: 15,
                                               fontWeight: FontWeight.bold),
@@ -101,40 +97,32 @@ class _LegsPracticeWidgetState extends State<LegsPracticeWidget> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                notifier.legs[index].subType,
+                                                notifier.back[index].subType,
                                                 style: const TextStyle(
                                                     fontSize: 15),
                                               ),
                                               Text(
-                                                '${notifier.legs[index].reps}x${notifier.legs[index].sets}',
+                                                '${notifier.back[index].reps}x${notifier.back[index].sets}',
                                                 style: const TextStyle(
                                                     fontSize: 20),
                                               ),
                                               Text(
-                                                '${notifier.legs[index].kgs} kg',
+                                                '${notifier.back[index].kgs} kg',
                                                 style: const TextStyle(
                                                     fontSize: 20),
                                               ),
-                                              // TextButton(
-                                              //     onPressed: () {
-                                              //       Provider.of<LegsProvider>(
-                                              //               context,
-                                              //               listen: false)
-                                              //           .deletePractice();
-                                              //     },
-                                              //     child: const Text('Delete')),
                                             ],
                                           ),
                                         ),
                                         Text(
-                                            'Date Modified:      ${DateFormat.yMMMEd().format(notifier.legs[index].time)} at ${DateFormat('h:mm a').format(notifier.legs[index].time)}'),
+                                            'Date Modified:      ${DateFormat.yMMMEd().format(notifier.back[index].time)} at ${DateFormat('h:mm a').format(notifier.back[index].time)}')
                                       ],
                                     ),
                                   ),
                                 ),
                               ),
                             )),
-                        itemCount: notifier.legs.length,
+                        itemCount: notifier.back.length,
                       ),
                     );
             }),
