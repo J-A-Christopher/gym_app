@@ -7,9 +7,9 @@ class TabContent1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<String> sites = [
-      'https://youtu.be/LWdhO_OMrHk',
-      'https://youtu.be/Xg9B6pqHUQE',
-      'https://youtu.be/jVabPEjDCHY',
+      'https://youtu.be/rdaIUhFWCpg',
+      'https://youtu.be/prJ7vF2wx6A',
+      'https://youtu.be/kiI57DPH3fM',
     ];
 
     return ListView.builder(
