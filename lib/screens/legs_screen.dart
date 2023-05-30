@@ -179,14 +179,14 @@ class _LegsScreenState extends State<LegsScreen> {
                       children: [
                         ElevatedButton(
                             onPressed: () {
-                              if (_editedPractices.kgs == '' ||
-                                  _editedPractices.reps == '' ||
-                                  _editedPractices.sets == '' ||
-                                  _editedPractices.subType == '' ||
-                                  _editedPractices.type == '' ||
-                                  _selectedDate == '') {
-                                return;
-                              }
+                              // if (_editedPractices.kgs == '' ||
+                              //     _editedPractices.reps == '' ||
+                              //     _editedPractices.sets == '' ||
+                              //     _editedPractices.subType == '' ||
+                              //     _editedPractices.type == '' ||
+                              //     _selectedDate == '') {
+                              //   return;
+                              // }
                               _saveForm();
                               Navigator.pop(context);
                               Provider.of<LegsProvider>(context, listen: false)

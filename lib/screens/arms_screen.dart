@@ -155,13 +155,13 @@ class _ArmsScreenState extends State<ArmsScreen> {
                     ),
                     ElevatedButton(
                         onPressed: () {
-                          if (_editedPractices.kgs == '' ||
-                              _editedPractices.reps == '' ||
-                              _editedPractices.sets == '' ||
-                              _editedPractices.subType == '' ||
-                              _editedPractices.type == '') {
-                            return;
-                          }
+                          // if (_editedPractices.kgs == '' ||
+                          //     _editedPractices.reps == '' ||
+                          //     _editedPractices.sets == '' ||
+                          //     _editedPractices.subType == '' ||
+                          //     _editedPractices.type == '') {
+                          //   return;
+                          // }
                           _saveForm();
                           Navigator.pop(context);
                           Provider.of<ArmsProvider>(context, listen: false)
